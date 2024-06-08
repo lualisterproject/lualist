@@ -32,9 +32,9 @@ def save_data(data):
 
 # Set up
 
-@bot.tree.command(name="SetUp", description="Set up an script")
+@bot.tree.command(name="setup", description="Set up an script")
 @app_commands.describe(api_key="Api_Key")
-async def script(interaction: discord.Interaction, api_key: str):
+async def setup(interaction: discord.Interaction, api_key: str):
     guildid = interaction.guild_id
     data = load_data()
     setupendpoint = "http://127.0.0.1/setup"
@@ -50,12 +50,12 @@ async def script(interaction: discord.Interaction, api_key: str):
 @bot.tree.command(name="whitelist")
 @app_commands.describe(user="user")
 @app_commands.describe(script_id="Script id")
-async def whitelist(interaction: discord.Interaction, user: discord.Member, scriptid: str):
+async def whitelist(interaction: discord.Interaction, user: discord.Member, script_id: str):
     userid = user.id
     author = interaction.user.id
     guild = interaction.guild_id
     enpoint = "http://127.0.0.1:5000/whitelist"
-    finalurl = f"{enpoint}?{guild}&{userid}&{scriptid}&{author}"
+    finalurl = f"{enpoint}?{guild}&{userid}&{script_id}&{author}"
     r = requests.get(finalurl)
     if r.status_code == 200:
         emb = discord.Embed(title="User whitelist", description="User whitelisted")
@@ -71,11 +71,11 @@ async def whitelist(interaction: discord.Interaction, user: discord.Member, scri
 
 
 @bot.tree.command(name="savepanel")
-@app_commands.describe(scrptid="scriptid")
+@app_commands.describe(scriptid="scriptid")
 @app_commands.describe(panel_name="Panel name")
 @app_commands.describe(description="panel description")
 @app_commands.describe(script="script")
-async def sendpanel(interaction: discord.Interaction, scriptid: str, panel_name: str, description: str, script: str):
+async def savepanel(interaction: discord.Interaction, scriptid: str, panel_name: str, description: str, script: str):
     data = load_data()
     author = interaction.user.id
     guildid = interaction.guild_id
